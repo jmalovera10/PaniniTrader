@@ -1,0 +1,30 @@
+.container-fluid{
+    justify-content: center;
+}
+
+input{
+    width: 100%;
+}
+
+h2{
+    text-align: center;
+}
+
+input[type=text], input[type=password]{
+    width: 100%;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.submit{
+    background-color: #1898F1;
+    width: 30%;
+    margin-left: 40%;
+    color: white;
+}
+#signup-container{
+    border-style: solid;
+    border-width: 4px;
+    border-color: cadetblue;
+    width: 100%;
+}

@@ -62,14 +62,16 @@ export class Home extends React.Component{
                                 <div className="container-fluid" id = "form-container">
                                     <div className="row">
                                         <div className = "btn-group" role="group" aria-label="button group">    
-                                            <button id="signup" type="button" className="btn btn-secondary btn-lg" onClick={this.handleSignUpButtonPress}> SignUp </button>
-                                            <button id="login" type="button" className="btn btn-secondary btn-lg " onClick={this.handleLoginButtonPress}> Login </button>
+                                            <button id="signup" type="button" className="btn btn-primary btn-lg" onClick={this.handleSignUpButtonPress}> SignUp </button>
+                                            <button id="login" type="button" className="btn btn-primary btn-lg " onClick={this.handleLoginButtonPress}> Login </button>
                                         </div>
                                     </div>
                                     <div className = "row">
-                                        {
-                                            signUpState ? (<SignUp/>) : (<Login/>)
-                                        }
+                                        <div className="col-sm-12">
+                                            {
+                                                signUpState ? (<SignUp/>) : (<Login/>)
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
