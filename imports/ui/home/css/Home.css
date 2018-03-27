@@ -1,0 +1,32 @@
+
+
+
+
+.navbar-brand > p{
+    padding: auto 0;
+    margin: auto 0;
+}
+
+#home-image{
+    height: 100%;
+    width: 100%;
+}
+#img-container{
+    position: relative;
+    text-align: center;
+}
+
+#img-text{
+    position: absolute;
+    top: 8rem;
+    right: 50px;
+    color:#ffffff;
+    font-size: 20px;
+}
+.btn-group{
+    width: 100%;
+}
+
+#login, #signup{
+    width: 50%;
+}
