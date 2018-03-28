@@ -1,15 +1,64 @@
 import React from "react";
+import NavBarUser from "./NavBarUser.js";
+import "./UserMenu.css";
 
-export class UserMenu extends React.Component{
-    constructor(props){
+export class UserMenu extends React.Component {
+    constructor(props) {
         super(props);
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                <h1>Menu de Usuario </h1>
-            </div>
+                <NavBarUser />
+                <br />
+                <div className="container-fluid" >
+                    <h1>Welcome! </h1>
+                    <br />
+                    <div className="row">
+                        <div className="col-sm-4">
+                            <h2 className="filterSelection">Filter your selection:</h2>
+                            <br />
+                            <div className="row">
+                                <div className="col-sm-1"></div>
+                                <div className="col-sm-10">
+                                    <h5>Choose the national team:</h5>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">National teams <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-header">Colombia</li>
+                                            <li><a href="#">James "Tatareto" Rodriguez</a></li>
+                                            <li><a href="#">Falcao "Rodilla frágil" García</a></li>
+                                            <li><a href="#">David "La Araña" Ospina</a></li>
+                                            <li><a href="#">Mohamed Amine Ben Amor </a></li>
+                                            <li class="divider"></li>
+                                            <li class="dropdown-header">Russia</li>
+                                            <li><a href="#">Putin</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className="row">
+                                <div className="col-sm-1"></div>
+                                <div className="col-sm-10">
+                                    <h5>Or Choose the number:</h5>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Number of the Sticker <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-6">
+                        </div>
+                    </div>
+                </div>
+            </div >
         );
     }
 }

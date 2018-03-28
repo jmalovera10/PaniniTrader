@@ -1,0 +1,24 @@
+.navbar-brand > p{
+    padding: auto 0;
+    margin: auto 0;
+}
+
+.navbar-brand > a{
+    padding: auto 0;
+    margin: auto 0;
+    font-family: 'Cormorant Garamond', serif;
+    color: white;
+}
+
+.navbar {
+    background-color : #0061a5;
+    font-family: 'Cormorant Garamond', serif;
+    color: white;
+}
+
+.btnLogOut {
+    width: 30%;
+    margin-left: 80%;
+    color: white;
+    cursor: pointer;
+}
