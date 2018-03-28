@@ -39,9 +39,9 @@ export class Home extends React.Component{
         return(
             <div id = "home">
                 <div id = "navigation">
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-primary" >
+                    <nav className="navbar navbar-expand-lg navbar-dark" >
                         <a className="navbar-brand" href="#"> 
-                            <p>PaniniTrader</p>
+                            <h3>PaniniTrader</h3>
                         </a>
                     </nav>
                 </div>
@@ -68,6 +68,7 @@ export class Home extends React.Component{
                                     </div>
                                     <div className = "row">
                                         <div className="col-sm-12">
+                                        <br/>
                                             {
                                                 signUpState ? (<SignUp/>) : (<Login/>)
                                             }
