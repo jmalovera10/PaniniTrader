@@ -21,6 +21,10 @@ body {
     text-align: center;
 }
 
+#slogan{
+    text-align: center;
+}
+
 #img-text{
     position: absolute;
     top: 8rem;
