@@ -1,14 +1,34 @@
 import React from "react";
 import "./login.css";
+import {withRouter} from "react-router-dom";
 
-export class Login extends React.Component{
+class Login extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            username: "",
+            password: "",
+        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    }
+    handleUsernameChange(e){
+        this.setState({
+            username: e.target.value
+        });
+    }
+    handlePasswordChange(e){
+        this.setState({
+            password: e.target.value
+        });
     }
     handleSubmit(e){
         e.preventDefault();
+        if(this.state.username === "John" && this.state.password === "1234"){
+            this.props.history.push("/menu");
+        }
     }
     render(){
         return(
@@ -23,7 +43,7 @@ export class Login extends React.Component{
                                     Username:
                                     </div>
                                     <div className="col-sm-9">
-                                        <input type="text" name="text" placeholder="Username" autoComplete="on"/>
+                                        <input type="text" name="text" placeholder="Username" autoComplete="on" onChange={this.handleUsernameChange}/>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -31,7 +51,7 @@ export class Login extends React.Component{
                                     Password:
                                     </div>
                                     <div className="col-sm-9">
-                                        <input type="password" name="text" placeholder="Password" autoComplete="off"/>
+                                        <input type="password" name="text" placeholder="Password" autoComplete="off" onChange={this.handlePasswordChange}/>
                                     </div>
                                 </div>
                                 <br/>
@@ -47,3 +67,5 @@ export class Login extends React.Component{
         );
     }
 }
+
+export default withRouter(Login);

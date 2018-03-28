@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/Home.css";
-import {Login} from "./login/login.js";
+import Login from "./login/login.js";
 import {SignUp} from "./signup/signup.js";
 
 export class Home extends React.Component{
