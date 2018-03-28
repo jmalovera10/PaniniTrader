@@ -5,12 +5,79 @@ export class SignUp extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            firstName: "",
+            surname: "",
+            password: "",
+            cPassword: "",
+            mail:""
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlefName = this.handlefName.bind(this);
+        this.handleSurname = this.handleSurname.bind(this);
+        this.handleMail = this.handleMail.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.handleCPassword = this.handleCPassword.bind(this);
+    }
+    handlefName(e){
+        this.setState({
+            firstName: e.target.value
+        });
+    }
+    handleSurname(e){
+        this.setState({
+            surname: e.target.value
+        });
+    }
+    handleMail(e){
+        this.setState({
+            mail: e.target.value
+        });
+    }
+    handlePassword(e){
+        this.setState({
+            password: e.target.value
+        });
+    }
+    handleCPassword(e){
+        this.setState({
+            cPassword: e.target.value
+        });
     }
 
     handleSubmit(e) {
         e.preventDefault();
-
+        if(this.state.firstName === ""){
+            alert("You must type your first name");
+        }
+        else if(this.state.surname === ""){
+            alert("You must type your surname");
+        }
+        else if(this.state.mail === ""){
+            alert("You must type a valid e-mail");
+        }
+        else if(!this.state.mail.match(/.+@.+/)){
+            alert("You must type a valid e-mail");
+        }
+        else if(this.state.password === ""){
+            alert("You must type a password");
+        }
+        else if(this.state.cPassword === ""){
+            alert("You must confirm your password");
+        }
+        else if(this.state.password !== this.state.cPassword){
+            alert("The passwords do not match");
+        }
+        else{
+            Accounts.createUser({
+                email: this.state.mail,
+                password: this.state.password,
+                profile: {
+                    firstName: this.state.firstName,
+                    surname: this.state.surname
+                }
+            });
+        }
     }
     render() {
         return (
@@ -24,7 +91,7 @@ export class SignUp extends React.Component {
                                     First Name:
                                     </div>
                                 <div className="col-sm-7">
-                                    <input type="text" name="text" placeholder="Enter your name" autoComplete="on" />
+                                    <input type="text" name="text" placeholder="Enter your name" autoComplete="on" onChange={this.handlefName} />
                                 </div>
                             </div>
                             <div className="row">
@@ -32,31 +99,7 @@ export class SignUp extends React.Component {
                                     Surname:
                                     </div>
                                 <div className="col-sm-7">
-                                    <input type="text" name="text" placeholder="Enter your surname" autoComplete="on" />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-sm-5">
-                                    Username:
-                                    </div>
-                                <div className="col-sm-7">
-                                    <input type="text" name="text" placeholder="Username" autoComplete="on" />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-sm-5">
-                                    Password:
-                                    </div>
-                                <div className="col-sm-7">
-                                    <input type="password" name="text" placeholder="Password" autoComplete="off" />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-sm-5">
-                                    Confirm Password:
-                                    </div>
-                                <div className="col-sm-7">
-                                    <input type="password" name="text" placeholder="Confirm Password" autoComplete="off" />
+                                    <input type="text" name="text" placeholder="Enter your surname" autoComplete="on" onChange={this.handleSurname} />
                                 </div>
                             </div>
                             <div className="row">
@@ -64,7 +107,23 @@ export class SignUp extends React.Component {
                                     E-Mail:
                                     </div>
                                 <div className="col-sm-7">
-                                    <input type="email" name="text" placeholder="Enter your email" autoComplete="email" />
+                                    <input type="email" name="text" placeholder="Enter your email" autoComplete="email" onChange={this.handleMail} />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-5">
+                                    Password:
+                                    </div>
+                                <div className="col-sm-7">
+                                    <input type="password" name="text" placeholder="Password" autoComplete="off" onChange={this.handlePassword} />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-5">
+                                    Confirm Password:
+                                    </div>
+                                <div className="col-sm-7">
+                                    <input type="password" name="text" placeholder="Confirm Password" autoComplete="off" onChange={this.handleCPassword} />
                                 </div>
                             </div>
                             <br />

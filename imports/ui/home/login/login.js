@@ -6,17 +6,17 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
+            mail: "",
             password: "",
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handleMailChange = this.handleMailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
-    handleUsernameChange(e) {
+    handleMailChange(e) {
         this.setState({
-            username: e.target.value
+            mail: e.target.value
         });
     }
     handlePasswordChange(e) {
@@ -26,8 +26,14 @@ class Login extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.username === "John" && this.state.password === "1234") {
-            this.props.history.push("/menu");
+        if(this.state.mail === ""){
+            alert("You must enter a valid e-mail");
+        }
+        else if(!this.state.mail.match(/.+@.+/)){
+            alert("You must type a valid e-mail");
+        }
+        else if(this.state.password === ""){
+            alert("You must enter a password");
         }
     }
     render() {
@@ -39,10 +45,10 @@ class Login extends React.Component {
                         <label>
                             <div className="row">
                                 <div className="col-sm-5">
-                                    Username:
+                                    E-Mail:
                                     </div>
                                 <div className="col-sm-7">
-                                    <input type="text" name="text" placeholder="Username" autoComplete="on" onChange={this.handleUsernameChange} />
+                                    <input type="text" name="text" placeholder="Mail" autoComplete="on" onChange={this.handleMailChange} />
                                 </div>
                             </div>
                             <div className="row">
@@ -55,7 +61,7 @@ class Login extends React.Component {
                             </div>
                             <br />
                             <div className="row">
-                                <input type="submit" value="Sign Up" className="submit" onClick={this.handleSubmit} />
+                                <input type="submit" value="Login" className="submit" onClick={this.handleSubmit} />
                             </div>
 
                         </label>
