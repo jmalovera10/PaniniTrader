@@ -4,3 +4,7 @@
     border-color: cadetblue;
     width: 100%;
 }
+
+.submit{
+    cursor: pointer;
+}

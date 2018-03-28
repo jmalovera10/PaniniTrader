@@ -21,6 +21,7 @@ input[type=text], input[type=password]{
     width: 30%;
     margin-left: 40%;
     color: white;
+    cursor: pointer;
 }
 #signup-container{
     border-style: solid;
