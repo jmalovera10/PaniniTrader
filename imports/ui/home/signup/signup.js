@@ -79,15 +79,8 @@ class SignUp extends React.Component {
                     }
                 });
 
-                try{
-                    let userId = Meteor.userId();
-                    if ( userId ) {
-                        Accounts.sendVerificationEmail( userId );
-                    }
-                }
-                catch(e){
-                    console.log(e);    
-                }
+            
+                Meteor.call("sendVerification");
 
                 alert("Account Succesfully Created");
 

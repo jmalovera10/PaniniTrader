@@ -7,7 +7,17 @@ Meteor.startup(() => {
     return html.replace(/<html>/, '<!-- HTML 5 -->\n<html lang="en">');
   });
 
+  
 
   
   
+});
+
+Meteor.methods({
+  "sendVerification" (){
+      let userId = Meteor.userId();
+      if ( userId ) {
+      return Accounts.sendVerificationEmail( userId );
+      }
+  },
 });
