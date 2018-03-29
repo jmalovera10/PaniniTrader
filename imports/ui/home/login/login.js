@@ -35,6 +35,12 @@ class Login extends React.Component {
         else if(this.state.password === ""){
             alert("You must enter a password");
         }
+        else{
+        
+                Meteor.loginWithPassword(this.state.mail, this.state.password);
+                this.props.history.push("/menu");
+        }
+            
     }
     render() {
         return (

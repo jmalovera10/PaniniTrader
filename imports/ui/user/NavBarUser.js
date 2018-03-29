@@ -13,7 +13,13 @@ class NavBarUser extends React.Component {
     }
 
     handleLogOut(event){
-        this.props.history.push("/");
+        try{
+            Meteor.logout();
+            this.props.history.push("/");
+        }
+        catch(e){
+            alert("There was an error logging out, please try again later");
+        }
     }
 
     render() {

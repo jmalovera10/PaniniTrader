@@ -1,7 +1,7 @@
 import React from "react";
 import "./signup.css";
-
-export class SignUp extends React.Component {
+import { withRouter } from "react-router-dom";
+class SignUp extends React.Component {
 
     constructor(props) {
         super(props);
@@ -69,6 +69,7 @@ export class SignUp extends React.Component {
             alert("The passwords do not match");
         }
         else{
+            try{
             Accounts.createUser({
                 email: this.state.mail,
                 password: this.state.password,
@@ -77,6 +78,14 @@ export class SignUp extends React.Component {
                     surname: this.state.surname
                 }
             });
+
+            alert("Account Succesfully Created");
+
+            this.props.history.push("/menu");
+            }
+            catch(e){
+                alert("There was an error");
+            }
         }
     }
     render() {
@@ -138,3 +147,5 @@ export class SignUp extends React.Component {
         );
     }
 }
+
+export default withRouter(SignUp);
