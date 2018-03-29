@@ -1,6 +1,6 @@
 import React from "react";
 import "./NavBarUser.css";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 class NavBarUser extends React.Component {
     constructor(props) {
@@ -13,6 +13,7 @@ class NavBarUser extends React.Component {
     }
 
     handleLogOut(event){
+        event.preventDefault();
         try{
             Meteor.logout();
             this.props.history.push("/");
@@ -25,12 +26,28 @@ class NavBarUser extends React.Component {
     render() {
         return (
             <div id="navigation">
-                <nav className="navbar sticky-top navbar-expand-lg navbar-dark" >
-                    <a className="navbar-brand" href="#">
-                        <h3>PaniniTrader</h3>
-                    </a>
-
-                    <h4 className="btnLogOut" onClick={this.handleLogOut}> Log Out </h4>
+                <nav className="navbar navbar-expand-lg navbar-dark ">
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <a className="navbar-brand" href="#">PaniniTrader</a>
+                        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">My Stickers</a>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/menu">
+                                    <a className="nav-link">Search</a>
+                                </Link>
+                            </li>
+                        </ul>
+                        <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+                            <li>
+                                <a className="nav-link" onClick={this.handleLogOut}>Logout</a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             </div>
         );

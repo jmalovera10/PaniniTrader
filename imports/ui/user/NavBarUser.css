@@ -16,6 +16,10 @@
     color: white;
 }
 
+.nav-item, .navbar-brand, .navabar-toggler-icon{
+    color: white;
+}
+
 .btnLogOut {
     width: 30%;
     margin-left: 80%;
