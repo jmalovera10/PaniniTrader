@@ -16,9 +16,16 @@
     color: white;
 }
 
-.nav-item, .navbar-brand, .navabar-toggler-icon{
-    color: white;
+
+
+.navbar-toggler-icon{
+    border-color: white;
 }
+
+.nav-link, #logout{
+    cursor: pointer;
+}
+
 
 .btnLogOut {
     width: 30%;

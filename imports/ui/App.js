@@ -1,7 +1,7 @@
 import {Meteor} from "meteor/meteor";
 import React from "react";
 import {Home} from "./home/Home.js"
-import {UserMenu} from "./user/UserMenu.jsx"
+import {Menu} from "../Routes/Menu.js";
 import {Link, Route, Switch, Redirect} from "react-router-dom";
 import {BrowserRouter} from "react-router-dom";
 
@@ -10,7 +10,7 @@ export const App = () => (
     <BrowserRouter>
         <Switch>
             <Route exact path="/" component={Home}/>
-            <PrivateRoute authed={isAuth()} path="/menu" component={UserMenu}/>
+            <PrivateRoute authed={isAuth()} path="/menu" component={Menu}/>
         </Switch>
     </BrowserRouter>
 );

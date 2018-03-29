@@ -79,12 +79,14 @@ class SignUp extends React.Component {
                     }
                 });
 
-            
-                Meteor.call("sendVerification");
-
                 alert("Account Succesfully Created");
 
                 this.props.history.push("/menu");
+
+            
+                Meteor.call("sendVerification");
+
+                
             }
             catch(e){
                 alert("There was an error");
