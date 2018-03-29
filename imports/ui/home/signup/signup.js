@@ -70,18 +70,28 @@ class SignUp extends React.Component {
         }
         else{
             try{
-            Accounts.createUser({
-                email: this.state.mail,
-                password: this.state.password,
-                profile: {
-                    firstName: this.state.firstName,
-                    surname: this.state.surname
+                Accounts.createUser({
+                    email: this.state.mail,
+                    password: this.state.password,
+                    profile: {
+                        firstName: this.state.firstName,
+                        surname: this.state.surname
+                    }
+                });
+
+                try{
+                    let userId = Meteor.userId();
+                    if ( userId ) {
+                        return Accounts.sendVerificationEmail( userId );
+                    }
                 }
-            });
+                catch(e){
+                    console.log(e);    
+                }
 
-            alert("Account Succesfully Created");
+                alert("Account Succesfully Created");
 
-            this.props.history.push("/menu");
+                this.props.history.push("/menu");
             }
             catch(e){
                 alert("There was an error");
