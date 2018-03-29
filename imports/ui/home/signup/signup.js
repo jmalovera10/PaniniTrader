@@ -82,7 +82,7 @@ class SignUp extends React.Component {
                 try{
                     let userId = Meteor.userId();
                     if ( userId ) {
-                        return Accounts.sendVerificationEmail( userId );
+                        Accounts.sendVerificationEmail( userId );
                     }
                 }
                 catch(e){
