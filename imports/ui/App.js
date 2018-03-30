@@ -9,8 +9,8 @@ import {BrowserRouter} from "react-router-dom";
 export const App = () => (
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route authed={isAuth()} path="/menu" component={Menu} onEnter={requireAuth}/>
+            <Route exact path="/" render={()=>(Meteor.userId() ? <Redirect to="/menu"/>: <Home/>)}/>
+            <Route authed={isAuth()} path="/menu" render={()=>(Meteor.userId() ? <Menu/> : <Redirect to="/"/>)}/>
         </Switch>
     </BrowserRouter>
 );
