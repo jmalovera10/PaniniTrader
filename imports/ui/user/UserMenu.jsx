@@ -2,7 +2,7 @@ import {Meteor} from "meteor/meteor";
 import React from "react";
 import NavBarUser from "./NavBarUser.js";
 import "./UserMenu.css";
-import {Filter} from "./Filter/filter.js";
+import Filter from "./Filter/filter.js";
 import {withTracker} from "meteor/react-meteor-data";
 import {Stickers} from "../../api/collections/stickers.js";
 import{Sticker} from "./Components/Sticker.js";
@@ -24,7 +24,7 @@ class UserMenu extends React.Component {
             <div>
                 <NavBarUser />
                 <br />
-                <div className="container-fluid" >
+                <div className="container-fluid">
                     <h1>Welcome! </h1>
                     <br />
                     <div className="row">
