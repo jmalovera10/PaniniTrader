@@ -1,3 +1,4 @@
+import {Meteor} from "meteor/meteor";
 import React from "react";
 import "./Sticker.css";
 import {Stickers} from "../../../api/collections/stickers.js"
@@ -10,6 +11,16 @@ export class Sticker extends React.Component{
 
     handleRemoveClick(){
         Stickers.remove(this.props.id);
+    }
+
+    renderButton(){
+        let userId = Meteor.userId();
+        if(this.props.owner === userId){
+            return <button type="button" onClick={this.handleRemoveClick} className="btn btn-danger btn-sm btn-block">Remove</button>
+        }
+        else{
+            return <button type="button" onClick={this.handleRemoveClick} className="btn btn-success btn-sm btn-block">Contact</button>
+        }
     }
 
     render(){
@@ -33,7 +44,7 @@ export class Sticker extends React.Component{
                     </div>
                     <div className="row">
                         <div className="col-sm-12">
-                            <button type="button" onClick={this.handleRemoveClick} className="btn btn-danger btn-sm btn-block">Remove</button>
+                            {this.renderButton()}
                         </div>
                     </div>
                 </div>

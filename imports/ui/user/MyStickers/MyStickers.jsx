@@ -11,7 +11,7 @@ export class MyStickers extends React.Component{
     renderSticker(){
         console.log(this.props.stickers);
         return this.props.stickers.map((sticker) =>(
-            <Sticker key={sticker._id} id={sticker._id} number={sticker.number}/>
+            <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner}/>
         ));
     }
 

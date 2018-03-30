@@ -1,10 +1,22 @@
+import {Meteor} from "meteor/meteor";
 import React from "react";
 import NavBarUser from "./NavBarUser.js";
 import "./UserMenu.css";
+import {Filter} from "./Filter/filter.js";
+import {withTracker} from "meteor/react-meteor-data";
+import {Stickers} from "../../api/collections/stickers.js";
+import{Sticker} from "./Components/Sticker.js";
 
-export class UserMenu extends React.Component {
+class UserMenu extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    renderSticker(){
+        console.log(this.props.stickers);
+        return this.props.stickers.map((sticker) =>(
+            <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner}/>
+        ));
     }
 
     render() {
@@ -15,46 +27,20 @@ export class UserMenu extends React.Component {
                 <div className="container-fluid" >
                     <h1>Welcome! </h1>
                     <br />
-                    <div className="row filterSelection">
+                    <div className="row">
                         <div className="col-sm-4">
-                            <h2 className="filterSelection">Filter your selection:</h2>
-                            <br />
-                            <div className="row">
-                                <div className="col-sm-1"></div>
-                                <div className="col-sm-10">
-                                    <h5>Choose the national team:</h5>
-                                    <div className="dropdown">
-                                        <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">National teams <span className="caret"></span></button>
-                                        <ul className="dropdown-menu">
-                                            <li className="dropdown-header">Colombia</li>
-                                            <li><a href="#">James "Tatareto" Rodriguez</a></li>
-                                            <li><a href="#">Falcao "Rodilla frágil" García</a></li>
-                                            <li><a href="#">David "La Araña" Ospina</a></li>
-                                            <li><a href="#">Mohamed Amine Ben Amor </a></li>
-                                            <li className="divider"></li>
-                                            <li className="dropdown-header">Russia</li>
-                                            <li><a href="#">Putin</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <br/>
-                            <div className="row">
-                                <div className="col-sm-1"></div>
-                                <div className="col-sm-10">
-                                    <h5>Or Choose the number:</h5>
-                                    <div className="dropdown">
-                                        <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Number of the Sticker <span className="caret"></span></button>
-                                        <ul className="dropdown-menu">
-                                            <li><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            <Filter/>
                         </div>
-                        <div className="col-sm-6">
+                        <div className="col-sm-8">
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <h2> Most Recent Publications! </h2>
+                                </div>
+                            </div>
+                            <div className="row">
+                                {this.renderSticker()}
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -62,3 +48,10 @@ export class UserMenu extends React.Component {
         );
     }
 }
+
+export default withTracker(()=>{
+    let userId = Meteor.userId();
+    return {
+        stickers: Stickers.find({owner:{$ne:userId}}).fetch(),
+    };
+}) (UserMenu);
