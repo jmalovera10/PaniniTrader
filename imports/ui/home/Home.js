@@ -1,9 +1,11 @@
+import {Meteor} from "meteor/meteor";
 import React from "react";
 import "./css/Home.css";
 import Login from "./login/login.js";
 import  SignUp  from "./signup/signup.js";
+import {withRouter} from "react-router-dom";
 
-export class Home extends React.Component {
+class Home extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,6 +15,13 @@ export class Home extends React.Component {
 
         this.handleLoginButtonPress = this.handleLoginButtonPress.bind(this);
         this.handleSignUpButtonPress = this.handleSignUpButtonPress.bind(this);
+    }
+
+    componentWillMount(){
+        let id = Meteor.userId();
+        if(id){
+            this.props.history.push("/menu");
+        }
     }
 
     handleLoginButtonPress(e) {
@@ -80,3 +89,5 @@ export class Home extends React.Component {
         );
     }
 }
+
+export default withRouter(Home);

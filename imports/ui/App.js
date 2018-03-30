@@ -1,6 +1,6 @@
 import {Meteor} from "meteor/meteor";
 import React from "react";
-import {Home} from "./home/Home.js"
+import Home from "./home/Home.js"
 import {Menu} from "../Routes/Menu.js";
 import {Link, Route, Switch, Redirect} from "react-router-dom";
 import {BrowserRouter} from "react-router-dom";
