@@ -16,13 +16,7 @@ class Home extends React.Component {
         this.handleLoginButtonPress = this.handleLoginButtonPress.bind(this);
         this.handleSignUpButtonPress = this.handleSignUpButtonPress.bind(this);
     }
-
-    componentWillMount(){
-        let id = Meteor.userId();
-        if(id){
-            this.props.history.push("/menu");
-        }
-    }
+ 
 
     handleLoginButtonPress(e) {
         e.preventDefault();

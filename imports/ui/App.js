@@ -10,13 +10,24 @@ export const App = () => (
     <BrowserRouter>
         <Switch>
             <Route exact path="/" component={Home}/>
-            <PrivateRoute authed={isAuth()} path="/menu" component={Menu}/>
+            <Route authed={isAuth()} path="/menu" component={Menu} onEnter={requireAuth}/>
         </Switch>
     </BrowserRouter>
 );
+
+const requireAuth = (nextState, replace) => {
+    if (!Meteor.loggingIn() && !Meteor.userId()) {
+      replace({
+        pathname: "/",
+        state: { nextPathname: nextState.location.pathname },
+      });
+    }
+  };
+
+
 //Checks if the user is authneticated.
 function isAuth(){
-    let userId = Accounts.userId();
+    let userId = Meteor.userId();
     if(userId){
         return true;
     }

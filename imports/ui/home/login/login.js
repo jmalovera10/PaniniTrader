@@ -37,8 +37,14 @@ class Login extends React.Component {
         }
         else{
         
-                Meteor.loginWithPassword(this.state.mail, this.state.password);
-                this.props.history.push("/menu");
+                Meteor.loginWithPassword(this.state.mail, this.state.password, (err)=>{
+                    if(err){
+                        throw(err);
+                    }
+                    else{
+                        this.props.history.push("/menu");
+                    }
+                });
         }
             
     }
