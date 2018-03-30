@@ -68,7 +68,7 @@ class Login extends React.Component {
                                     Password:
                                     </div>
                                 <div className="col-sm-7">
-                                    <input type="password" name="text" placeholder="Password" autoComplete="off" onChange={this.handlePasswordChange} />
+                                    <input type="password" name="password" placeholder="Password" onChange={this.handlePasswordChange} />
                                 </div>
                             </div>
                             <br />

@@ -7,10 +7,21 @@ export class Sticker extends React.Component{
     constructor(props){
         super(props);
         this.handleRemoveClick = this.handleRemoveClick.bind(this);
+        this.handleContactClick = this.handleContactClick.bind(this);
     }
 
     handleRemoveClick(){
         Stickers.remove(this.props.id);
+    }
+
+    handleContactClick(){
+        let cel = this.props.phone;
+        let url = "https://api.whatsapp.com/send?phone=57";
+        let number = this.props.number;
+        let finalUrl = url + cel;
+        console.log(finalUrl);
+        window.open(finalUrl, "_blank");
+
     }
 
     renderButton(){
@@ -19,7 +30,7 @@ export class Sticker extends React.Component{
             return <button type="button" onClick={this.handleRemoveClick} className="btn btn-danger btn-sm btn-block">Remove</button>
         }
         else{
-            return <button type="button" onClick={this.handleRemoveClick} className="btn btn-success btn-sm btn-block">Contact</button>
+            return <button type="button" onClick={this.handleContactClick} className="btn btn-success btn-sm btn-block">Contact</button>
         }
     }
 

@@ -27,9 +27,11 @@ export class Insert extends React.Component{
         }
         else{
             let id = Meteor.userId();
+            let cellphone = Meteor.user().profile.phone;
             Stickers.insert({
                 number: this.state.number,
-                owner: id
+                owner: id,
+                phone: cellphone
             });
 
         }

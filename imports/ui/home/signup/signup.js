@@ -10,7 +10,8 @@ class SignUp extends React.Component {
             surname: "",
             password: "",
             cPassword: "",
-            mail:""
+            mail:"",
+            cellphone:"",
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlefName = this.handlefName.bind(this);
@@ -18,6 +19,12 @@ class SignUp extends React.Component {
         this.handleMail = this.handleMail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.handleCPassword = this.handleCPassword.bind(this);
+        this.handleCellphone = this.handleCellphone.bind(this);
+    }
+    handleCellphone(e){
+        this.setState({
+            cellphone: e.target.value
+        })
     }
     handlefName(e){
         this.setState({
@@ -47,6 +54,7 @@ class SignUp extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        let numbers = /^[0-9]+$/;
         if(this.state.firstName === ""){
             alert("You must type your first name");
         }
@@ -58,6 +66,12 @@ class SignUp extends React.Component {
         }
         else if(!this.state.mail.match(/.+@.+/)){
             alert("You must type a valid e-mail");
+        }
+        else if(this.state.cellphone.length !== 10){
+            alert("Your cellphone must have 10 digits");
+        }
+        else if(!(this.state.cellphone.match(numbers))){
+            alert("Your cellphone can only containe numeric values");
         }
         else if(this.state.password === ""){
             alert("You must type a password");
@@ -75,7 +89,8 @@ class SignUp extends React.Component {
                     password: this.state.password,
                     profile: {
                         firstName: this.state.firstName,
-                        surname: this.state.surname
+                        surname: this.state.surname,
+                        phone: this.state.cellphone
                     }
                 }, (err)=>{
                     if(err){
@@ -93,7 +108,7 @@ class SignUp extends React.Component {
                 });
             }
             catch(e){
-                alert("There was an error");
+                alert(e);
             }
         }
     }
@@ -130,10 +145,18 @@ class SignUp extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="col-sm-5">
+                                    Cellphone:
+                                    </div>
+                                <div className="col-sm-7">
+                                    <input type="tel" name="tel" placeholder="Enter your cellphone" autoComplete="off" minLength="10" maxLength="10" onChange={this.handleCellphone} />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-5">
                                     Password:
                                     </div>
                                 <div className="col-sm-7">
-                                    <input type="password" name="text" placeholder="Password" autoComplete="off" onChange={this.handlePassword} />
+                                    <input type="password" name="password" placeholder="Password"  onChange={this.handlePassword} />
                                 </div>
                             </div>
                             <div className="row">
@@ -141,7 +164,7 @@ class SignUp extends React.Component {
                                     Confirm Password:
                                     </div>
                                 <div className="col-sm-7">
-                                    <input type="password" name="text" placeholder="Confirm Password" autoComplete="off" onChange={this.handleCPassword} />
+                                    <input type="password" name="password" placeholder="Confirm Password" autoComplete="off" onChange={this.handleCPassword} />
                                 </div>
                             </div>
                             <br />
