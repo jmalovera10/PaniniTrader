@@ -10,6 +10,22 @@ import{Sticker} from "./Components/Sticker.js";
 class UserMenu extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            filter: "noFilter",
+            typeFilter: "noFilter"
+        }
+
+        this.handleFilter = this.handleFilter.bind(this);
+    }
+
+    handleFilter(){
+        console.log("onFilter");
+        let filterToApply = localStorage.getItem("filter");
+        let typeFilterToApply = localStorage.getItem("typeFilter");
+        console.log(filterToApply);
+        console.log(typeFilterToApply);
+        this.setState({filter: filterToApply});
+        this.setState({typeFilter: typeFilterToApply});
     }
 
     renderSticker(){
@@ -29,7 +45,7 @@ class UserMenu extends React.Component {
                     <br />
                     <div className="row">
                         <div className="col-sm-4">
-                            <Filter/>
+                            <Filter onFilter={this.handleFilter}/>
                         </div>
                         <div className="col-sm-8">
                             <div className="row">
@@ -38,6 +54,12 @@ class UserMenu extends React.Component {
                                 </div>
                             </div>
                             <div className="row">
+                            {
+                                console.log("props")
+                            }
+                            {
+                                console.log(this.props)
+                            }
                                 {this.renderSticker()}
                             </div>
 

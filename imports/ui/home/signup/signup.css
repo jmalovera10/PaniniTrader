@@ -18,8 +18,8 @@ input[type=text], input[type=password], input[type=tel]{
 
 .submit{
     background-color: #1898F1;
-    width: 30%;
-    margin-left: 40%;
+    width: 60%;
+    margin-left: 20%;
     color: white;
     cursor: pointer;
 }
