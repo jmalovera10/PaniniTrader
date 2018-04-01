@@ -4,6 +4,12 @@ import {check} from "meteor/check";
 
 export const Names = new Mongo.Collection("names");
 
+if(Meteor.isServer){
+    Meteor.publish("names", function publishNames(){
+        return Names.find();
+    });
+}
+
 Meteor.methods({
     "names.findByNum"(pNum){
         check(pNum, Number);

@@ -127,6 +127,7 @@ class UserMenu extends React.Component {
 }
 
 export default withRouter( withTracker(()=>{
+    Meteor.subscribe("stickers");
     let userId = Meteor.userId();
     return {
         stickers: Stickers.find({owner:{$ne:userId}}).fetch(),

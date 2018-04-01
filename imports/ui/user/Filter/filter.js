@@ -161,6 +161,8 @@ class Filter extends React.Component {
 }
 
 export default withRouter( withTracker(() => {
+    Meteor.subscribe("names");
+    Meteor.subscribe("groups");
     return {
         names: Names.find().fetch(),
         groups: Groups.find().fetch()

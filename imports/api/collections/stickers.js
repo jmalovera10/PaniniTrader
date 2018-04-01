@@ -3,6 +3,13 @@ import {Mongo} from "meteor/mongo";
 import {check} from "meteor/check";
 export const Stickers = new Mongo.Collection("stickers");
 
+if(Meteor.isServer){
+    Meteor.publish("stickers", function stickerPublication(){
+        return Stickers.find();
+    });
+    
+}
+
 Meteor.methods({
     "stickers.remove"(id){
         check(id, String);

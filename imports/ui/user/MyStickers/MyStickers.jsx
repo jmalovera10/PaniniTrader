@@ -48,6 +48,7 @@ export class MyStickers extends React.Component{
 }
 
 export default withTracker(()=>{
+    Meteor.subscribe("stickers");
     let userId = Meteor.userId();
     return {
         stickers: Stickers.find({owner:userId}).fetch(),
