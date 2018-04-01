@@ -30,18 +30,13 @@ export class Insert extends React.Component{
             let id = Meteor.userId();
             let cellphone = Meteor.user().profile.phone;
             let player = Names.findOne({Num: parseInt(this.state.number)});
-            console.log(player);
-            let pName = player.Name.slice(0,-3);
-            let pCountry = player.Country;
-            Stickers.insert({
-                number: this.state.number,
-                owner: id,
-                phone: cellphone,
-                name: pName,
-                country: pCountry
-            });
             
-
+            Meteor.call("names.findByNum", parseInt(this.state.number), (err, result) =>{
+                let player = result;
+                let pName = player.Name.slice(0,-3);
+                let pCountry = player.Country;
+                Meteor.call("stickers.insert", this.state.number, id, cellphone, pName, pCountry);
+            } );
         }
         
     }

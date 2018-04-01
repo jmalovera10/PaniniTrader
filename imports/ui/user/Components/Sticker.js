@@ -11,7 +11,7 @@ export class Sticker extends React.Component{
     }
 
     handleRemoveClick(){
-        Stickers.remove(this.props.id);
+        Meteor.call("stickers.remove", this.props.id);
     }
 
     handleContactClick(){

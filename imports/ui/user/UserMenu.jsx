@@ -24,7 +24,6 @@ class UserMenu extends React.Component {
     }
 
     handleFilter(pname, pteam, pnumber){
-        console.log("He llegado");
         this.setState({
             filter: "filter",
             name: pname,
