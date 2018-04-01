@@ -24,3 +24,4 @@ meteorhacks:inject-initial
 accounts-password
 email
 react-meteor-data
+session

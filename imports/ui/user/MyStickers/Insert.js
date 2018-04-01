@@ -2,6 +2,7 @@ import {Meteor} from "meteor/meteor"
 import React from "react";
 import "./Insert.css";
 import {Stickers} from "../../../../imports/api/collections/stickers.js";
+import {Names} from "../../../api/collections/names.js";
 
 export class Insert extends React.Component{
     constructor(props){
@@ -28,11 +29,18 @@ export class Insert extends React.Component{
         else{
             let id = Meteor.userId();
             let cellphone = Meteor.user().profile.phone;
+            let player = Names.findOne({Num: parseInt(this.state.number)});
+            console.log(player);
+            let pName = player.Name.slice(0,-3);
+            let pCountry = player.Country;
             Stickers.insert({
                 number: this.state.number,
                 owner: id,
-                phone: cellphone
+                phone: cellphone,
+                name: pName,
+                country: pCountry
             });
+            
 
         }
         

@@ -1,8 +1,10 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
+import ReactDOM from "react-dom";
 import { withTracker } from "meteor/react-meteor-data";
 import { Names } from "../../../api/collections/names.js";
 import { Groups } from "../../../api/collections/groups.js";
+import {withRouter} from "react-router-dom";
 
 
 class Filter extends React.Component {
@@ -11,7 +13,9 @@ class Filter extends React.Component {
         super(props);
 
         this.state = {
-            number: ""
+            number: "",
+            name: "",
+            team: ""
         }
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -23,22 +27,24 @@ class Filter extends React.Component {
     }
 
     handleNameChange(e) {
-        e.preventDefault();
-        localStorage.setItem("filter", e.target.value);
-        localStorage.setItem("typeFilter", "name");
-        let callback = this.props.onFilter;
+        this.setState({
+            name: e.target.value
+        });
+        ReactDOM.findDOMNode(this.refs.nameInput).value=e.target.value;
     }
 
     handleTeamChange(e) {
-        e.preventDefault();
-        localStorage.setItem("filter", e.target.value);
-        localStorage.setItem("typeFilter", "Team");
+        this.setState({
+            team: e.target.value
+        })
     }
     
     handleNumberChange(e){
         e.preventDefault();
-        localStorage.setItem("filter", e.target.value);
-        localStorage.setItem("typeFilter", "Number");
+        this.setState({
+            number: e.target.value
+        });
+        ReactDOM.findDOMNode(this.refs.numberInput).value=e.target.value;
     }
 
     numberChange(e) {
@@ -46,21 +52,37 @@ class Filter extends React.Component {
         this.setState({
             number: e.target.value
         });
+        ReactDOM.findDOMNode(this.refs.numberInput).value=e.target.value;
     }
 
     handleSearch(){
-        if(this.state.number < 0 || this.state.number > 669){
+        if(this.state.number === "" && this.state.team === "" && this.state.name === ""){
+            alert("You need to insert at least one param to search");
+        }
+        else if(this.state.number < 0 || this.state.number > 669){
             alert("The range of stickers in the album is (0-669)")
         }
         else{
-            localStorage.setItem("filter",this.state.number );
-            localStorage.setItem("typeFilter", "Number");
+            let number = this.state.number;
+            let team = this.state.team;
+            let name = this.state.name;
+            console.log("A punto de ejecutar");
+            this.props.onFilter(name, team, number);
+
         }
     }
 
     handleReset() {
-        localStorage.setItem("filter", "noFilter");
-        localStorage.setItem("typeFilter", "noFilter");
+        this.setState({
+            number: "",
+            name:"",
+            team: ""
+        });
+
+        ReactDOM.findDOMNode(this.refs.numberInput).value="";
+        ReactDOM.findDOMNode(this.refs.nameInput).value="";
+
+        this.props.onReset();
     }
 
     render() {
@@ -85,6 +107,7 @@ class Filter extends React.Component {
                                     </select>
                                 </label>
                             </form>
+                            <input type="text" ref="nameInput" name="text" placeholder="Name" onChange={this.handleNameChange} />
                         </div>
                     </div>
                 </div>
@@ -97,6 +120,7 @@ class Filter extends React.Component {
                             <form>
                                 <label>
                                     <select onChange={this.handleTeamChange}>
+                                        <option className="dropdown-item" key="none"> None </option>
                                         {this.props.groups.map((group) => (
                                             <option className="dropdown-item" key={group.Group}>{group.Group}</option>
                                         ))}
@@ -125,7 +149,7 @@ class Filter extends React.Component {
                             </form>
 
                         </div>
-                        <input type="number" name="number" placeholder="number" onChange={this.numberChange} />
+                        <input type="number" ref="numberInput" name="number" placeholder="number" onChange={this.numberChange} />
                         <input type="submit" className="submit" value="Search" onClick={this.handleSearch} />
                         <br />
                         <br />
@@ -137,9 +161,9 @@ class Filter extends React.Component {
     }
 }
 
-export default withTracker(() => {
+export default withRouter( withTracker(() => {
     return {
         names: Names.find().fetch(),
         groups: Groups.find().fetch()
     };
-})(Filter);
+})(Filter));

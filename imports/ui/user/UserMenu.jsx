@@ -1,41 +1,97 @@
 import {Meteor} from "meteor/meteor";
 import React from "react";
+import {withRouter} from "react-router-dom";
 import NavBarUser from "./NavBarUser.js";
 import "./UserMenu.css";
 import Filter from "./Filter/filter.js";
 import {withTracker} from "meteor/react-meteor-data";
 import {Stickers} from "../../api/collections/stickers.js";
 import{Sticker} from "./Components/Sticker.js";
+import {Names} from "../../api/collections/names.js";
 
 class UserMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             filter: "noFilter",
-            typeFilter: "noFilter"
+            name:"",
+            team:"",
+            number:""
         }
-
         this.handleFilter = this.handleFilter.bind(this);
+        this.handleReset = this.handleReset.bind(this);
+        
     }
 
-    handleFilter(){
-        console.log("onFilter");
-        let filterToApply = localStorage.getItem("filter");
-        let typeFilterToApply = localStorage.getItem("typeFilter");
-        console.log(filterToApply);
-        console.log(typeFilterToApply);
-        this.setState({filter: filterToApply});
-        this.setState({typeFilter: typeFilterToApply});
+    handleFilter(pname, pteam, pnumber){
+        console.log("He llegado");
+        this.setState({
+            filter: "filter",
+            name: pname,
+            team: pteam,
+            number: pnumber
+        });
+    }
+
+    handleReset(){
+        this.setState({
+            filter: "noFilter",
+            name: "",
+            team: "",
+            number: ""
+        });   
     }
 
     renderSticker(){
-        console.log(this.props.stickers);
-        return this.props.stickers.map((sticker) =>(
-            <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone}/>
-        ));
+        if(this.state.filter === "noFilter"){
+            return this.props.stickers.map((sticker) =>(
+                <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} country={sticker.country}/>
+            ));
+        }
+        else{
+            if(this.state.number !== ""){
+                let array = [];
+                this.props.stickers.map((sticker)=>{
+                    if(sticker.number === this.state.number){
+                        array.push(sticker);
+                    }
+                });
+
+                return array.map((sticker) =>(
+                    <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} country={sticker.country}/>
+                ));
+
+
+            }
+
+            else if(this.state.name !== ""){
+                let players = Names.find({Name:{$regex: this.state.name} }).fetch();
+                
+                let numbers = [];
+                players.map((player)=>{
+                    numbers.push(player.Num);
+                });
+
+                console.log(numbers);
+
+                let array = [];
+                this.props.stickers.map((sticker)=>{
+                    if(numbers.indexOf(parseInt(sticker.number)) >= 0){
+                        array.push(sticker);
+                    }
+                });
+
+                return array.map((sticker) =>(
+                    <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} country={sticker.country}/>
+                ));
+
+            }
+        }
+        
     }
 
     render() {
+        console.log(this.state);
         return (
             <div>
                 <NavBarUser />
@@ -45,7 +101,7 @@ class UserMenu extends React.Component {
                     <br />
                     <div className="row">
                         <div className="col-sm-4">
-                            <Filter onFilter={this.handleFilter}/>
+                            <Filter onFilter={this.handleFilter} onReset={this.handleReset}/>
                         </div>
                         <div className="col-sm-8">
                             <div className="row">
@@ -71,9 +127,9 @@ class UserMenu extends React.Component {
     }
 }
 
-export default withTracker(()=>{
+export default withRouter( withTracker(()=>{
     let userId = Meteor.userId();
     return {
         stickers: Stickers.find({owner:{$ne:userId}}).fetch(),
     };
-}) (UserMenu);
+}) (UserMenu));

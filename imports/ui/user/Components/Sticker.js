@@ -40,7 +40,12 @@ export class Sticker extends React.Component{
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12">
-                            <p> Player Name </p>
+                            <p> {this.props.country} </p>
+                        </div>                         
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <p> {this.props.name} </p>
                         </div>                         
                     </div>
                     <div className="row">
