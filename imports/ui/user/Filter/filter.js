@@ -114,26 +114,6 @@ class Filter extends React.Component {
                 <div className="row">
                     <div className="col-md-1"></div>
                     <div className="col-md-10">
-                        <h5>Search by team:</h5>
-                        <div className="formFilter">
-                            <form>
-                                <label>
-                                    <select onChange={this.handleTeamChange}>
-                                        <option className="dropdown-item" key="none"> None </option>
-                                        {this.props.groups.map((group) => (
-                                            <option className="dropdown-item" key={group.Group}>{group.Group}</option>
-                                        ))}
-                                    </select>
-                                </label>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div className="row">
-                    <div className="col-md-1"></div>
-                    <div className="col-md-10">
                         <h5>Search by number:</h5>
 
                         <div className="formFilter">

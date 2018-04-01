@@ -8,6 +8,7 @@ import {withTracker} from "meteor/react-meteor-data";
 import {Stickers} from "../../api/collections/stickers.js";
 import{Sticker} from "./Components/Sticker.js";
 import {Names} from "../../api/collections/names.js";
+import { Stadistics } from "../../api/collections/stadistics.js";
 
 class UserMenu extends React.Component {
     constructor(props) {
@@ -44,7 +45,8 @@ class UserMenu extends React.Component {
     renderSticker(){
         if(this.state.filter === "noFilter"){
             return this.props.stickers.map((sticker) =>(
-                <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} country={sticker.country}/>
+                <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} 
+                country={sticker.country} stadistics={this.props.stadistics}/>
             ));
         }
         else{
@@ -57,7 +59,8 @@ class UserMenu extends React.Component {
                 });
 
                 return array.map((sticker) =>(
-                    <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} country={sticker.country}/>
+                    <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} 
+                    country={sticker.country} stadistics={this.props.stadistics}/>
                 ));
 
 
@@ -81,7 +84,8 @@ class UserMenu extends React.Component {
                 });
 
                 return array.map((sticker) =>(
-                    <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} country={sticker.country}/>
+                    <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} 
+                    country={sticker.country} stadistics={this.props.stadistics}/>
                 ));
 
             }
@@ -128,8 +132,10 @@ class UserMenu extends React.Component {
 
 export default withRouter( withTracker(()=>{
     Meteor.subscribe("stickers");
+    Meteor.subscribe("stadistics");
     let userId = Meteor.userId();
     return {
         stickers: Stickers.find({owner:{$ne:userId}}).fetch(),
+        stadistics : Stadistics.find().fetch()
     };
 }) (UserMenu));

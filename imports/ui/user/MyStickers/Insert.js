@@ -1,13 +1,14 @@
-import {Meteor} from "meteor/meteor"
+import { Meteor } from "meteor/meteor"
 import React from "react";
 import "./Insert.css";
-import {Stickers} from "../../../../imports/api/collections/stickers.js";
-import {Names} from "../../../api/collections/names.js";
+import { Stickers } from "../../../../imports/api/collections/stickers.js";
+import { Names } from "../../../api/collections/names.js";
+import { Stadistics } from "../../../api/collections/stadistics.js";
 
-export class Insert extends React.Component{
-    constructor(props){
+export class Insert extends React.Component {
+    constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             number: ""
         }
 
@@ -15,33 +16,45 @@ export class Insert extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    numberChange(e){
+    numberChange(e) {
         this.setState({
             number: e.target.value
         });
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
-        if(this.state.number < 0 || this.state.number > 669){
+        if (this.state.number < 0 || this.state.number > 669) {
             alert("The range of stickers in the album is (0-669)")
         }
-        else{
+        else {
             let id = Meteor.userId();
             let cellphone = Meteor.user().profile.phone;
-            let player = Names.findOne({Num: parseInt(this.state.number)});
-            Meteor.call("names.findByNum", parseInt(this.state.number), (err, result) =>{
+            //let player = Names.findOne({Num: parseInt(this.state.number)});
+            Meteor.call("names.findByNum", parseInt(this.state.number), (err, result) => {
+                console.log(result);
                 let player = result;
-                let pName = player.Name.slice(0,-3);
+                let pName = player.Name.slice(0, -3);
                 let pCountry = player.Country;
                 Meteor.call("stickers.insert", this.state.number, id, cellphone, pName, pCountry);
-            } );
+            });
+            Meteor.call("stadistics.findByNum", this.state.number, (err, result) => {
+                console.log(result);
+                console.log(result._id);
+                console.log(result.quantity);
+                let quantityUpdate = parseInt(result.quantity) + 1;
+                console.log("final:" + quantityUpdate);
+                Meteor.call("stadistics.updatesInfo", result._id, quantityUpdate, this.state.number);
+
+            });
+
+
         }
-        
+
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <div className="container" id="add-container">
                     <div className="row">
@@ -54,9 +67,9 @@ export class Insert extends React.Component{
                             <form onSubmit={this.handleSubmit}>
                                 <label>
                                     Enter Sticker Number:
-                                    <input type="number" name="number" placeholder="Sticker Number" onChange={this.numberChange}/>
+                                    <input type="number" name="number" placeholder="Sticker Number" onChange={this.numberChange} />
                                 </label>
-                                <input type="submit" className="submit" value="Add"/>
+                                <input type="submit" className="submit" value="Add" />
                             </form>
                         </div>
                     </div>

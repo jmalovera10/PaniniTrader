@@ -5,10 +5,12 @@ import {withTracker} from "meteor/react-meteor-data";
 import {Sticker} from "../Components/Sticker.js";
 import {Stickers} from "../../../api/collections/stickers.js";
 import {Insert} from "./Insert.js";
+import { Stadistics } from "../../../api/collections/stadistics.js";
 
 export class MyStickers extends React.Component{
 
     renderSticker(){
+        console.log("props de myStickers");
         console.log(this.props.stickers);
         return this.props.stickers.map((sticker) =>(
             <Sticker key={sticker._id} id={sticker._id} number={sticker.number} owner={sticker.owner} phone={sticker.phone} name={sticker.name} country={sticker.country}/>
