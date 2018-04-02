@@ -5,9 +5,9 @@ import { withRouter, Link } from "react-router-dom";
 class NavBarUser extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
+        //this.state = {
+            //Eliminar el estado inutilizado
+        //}
 
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleSearchClick = this.handleSearchClick.bind(this);
