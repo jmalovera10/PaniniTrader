@@ -66,6 +66,8 @@ class Home extends React.Component {
                                 <div className="container-fluid" id="form-container">
                                     <div className="row">
                                         <div className="btn-group" role="group" aria-label="button group">
+                                            <!--Los colores de background y foreground no tienen el suficiente contraste se recomienda
+                                            colores más oscuros-->
                                             <button id="signup" type="button" className="btn btn-primary btn-lg" onClick={this.handleSignUpButtonPress}> SignUp </button>
                                             <button id="login" type="button" className="btn btn-primary btn-lg " onClick={this.handleLoginButtonPress}> Login </button>
                                         </div>
