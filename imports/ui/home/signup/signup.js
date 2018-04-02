@@ -169,6 +169,8 @@ class SignUp extends React.Component {
                             </div>
                             <br />
                             <div className="row">
+                                <!--Los colores de background y foreground no tienen el suficiente contraste se recomienda
+                                colores más oscuros-->
                                 <input type="submit" value="Sign Up" className="submit" onClick={this.handleSubmit} />
                             </div>
 
